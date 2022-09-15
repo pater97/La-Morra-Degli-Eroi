@@ -42,7 +42,7 @@ class Ranking extends Component {
             
           <ul>
             {this.state.value &&
-              this.state.rank.map((user, key) => {
+              this.state.rank.sort((a, b) => a.gameWon > b.gameWon ? -1 : 1).map((user, key) => {
                 return (
                   <>
                   <li key={key}>
