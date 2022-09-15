@@ -41,32 +41,6 @@ class Game extends Component {
     }
   }
 
-  // call ranking
-  callBackRanking(){
-    this.props.callBackAppRanking()
-  }
-
-  // restart setting game
-  restart(){
-    this.setState({
-      moves: {
-        user: 5,
-        cpu: 5
-      },
-      points: {
-        user: 0,
-        cpu: 0
-      },
-      result: {
-        label: ''
-      },
-      attempts: 1,
-      showResult: false,
-      showGame: true,
-      showResultScreen: false
-    })
-  }
-
   // get user move
   getMove(e){
     this.state.moves.user = e.target.id
@@ -136,9 +110,15 @@ class Game extends Component {
       localStorage.setItem('players', JSON.stringify(playerList))
 
       // manage page
-      this.setState({
-        showGame: false,
-        showResultScreen: true
+      this.props.router.navigate('/Result',{
+        state: {
+          victory : this.state.victory,
+          points : {
+            user: this.state.points.user,
+            cpu: this.state.points.cpu
+          },
+          userName: this.state.player.name
+        }
       })
     }
     
@@ -206,20 +186,6 @@ class Game extends Component {
             </div>
 
           </div>
-        }
-        {
-          this.state.showResultScreen &&
-          <>
-            <Result
-              result={this.state.result.label}
-              cpuPoints={this.state.points.cpu}
-              userPoints={this.state.points.user}
-              victory={this.state.victory}
-              callBackRank={this.callBackRanking.bind(this)}
-              callBackRestart={this.restart.bind(this)}
-              userName={this.state.player.name}
-            />
-          </>
         }
       </>
     )

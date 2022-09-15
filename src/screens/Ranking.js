@@ -1,5 +1,7 @@
 // react import
 import { Component } from "react"
+// importo il routing 
+import withRouter from "../withRouter";
 // components import
 import Button from "../components/ui/button/Button"
 
@@ -26,10 +28,10 @@ class Ranking extends Component {
   }
 
   propShowHome() {
-    this.props.callbackShowHome()
+    this.props.router.navigate('/')
   }
   propShowGame() {
-    this.props.callbackShowGame()
+    this.props.router.navigate('/Game')
   }
 
   render() {
@@ -83,4 +85,4 @@ class Ranking extends Component {
   }
 }
 
-export default Ranking
+export default withRouter(Ranking)
